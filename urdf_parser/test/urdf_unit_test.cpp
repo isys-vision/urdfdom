@@ -257,3 +257,24 @@ TEST(URDF_UNIT_TEST, parse_link_doubles)
   EXPECT_EQ(0.0012, urdf->links_["l1"]->inertial->iyz);
   EXPECT_EQ(0.908, urdf->links_["l1"]->inertial->izz);
 }
+
+TEST(URDF_UNIT_TEST, material_no_name)
+{
+  std::string joint_str =
+    "<robot name=\"test\">"
+    "  <material/>"
+    "  <link name=\"l1\"/>"
+    "</robot>";
+  urdf::ModelInterfaceSharedPtr urdf = urdf::parseURDF(joint_str);
+  ASSERT_EQ(nullptr, urdf);
+}
+
+TEST(URDF_UNIT_TEST, link_no_name)
+{
+  std::string joint_str =
+    "<robot name=\"test\">"
+    "  <link/>"
+    "</robot>";
+  urdf::ModelInterfaceSharedPtr urdf = urdf::parseURDF(joint_str);
+  ASSERT_EQ(nullptr, urdf);
+}
